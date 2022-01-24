@@ -2,6 +2,7 @@ import Head from 'next/head';
 import getAllProducts from '@framework/product/get-all-products';
 import type { InferGetStaticPropsType } from 'next';
 import { getConfig } from '@framework/api/config';
+import { Layout } from '@components/common';
 
 export async function getStaticProps() {
   const config = getConfig();
@@ -31,3 +32,5 @@ export default function Home({
     </div>
   );
 }
+
+Home.Layout = Layout;

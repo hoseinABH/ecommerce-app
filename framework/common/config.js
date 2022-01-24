@@ -3,8 +3,27 @@ const merge = require('deepmerge');
 const { writeFileSync } = require('fs');
 const prettier = require('prettier');
 
+const ALLOWED_FW = ['shopify', 'bigcommerce', 'shopify_local'];
+const FALLBACK_FW = 'shopify';
+
 function withFrameworkConfig(defaultConfig = {}) {
-  const framework = defaultConfig?.framework.name;
+  let framework = defaultConfig?.framework.name;
+
+  if (!framework)
+    throw new Error(
+      'The api framework is missing, please add a valid provider!'
+    );
+
+  if (!ALLOWED_FW.includes(framework))
+    throw new Error(`
+    the api framework: ${framework} cannot be found, please add an allowed framework(${ALLOWED_FW.join(
+      ', '
+    )})
+    `);
+
+  if (framework === 'shopify_local') {
+    framework = FALLBACK_FW;
+  }
 
   const frameworkNextConfig = require(path.join(
     '../',

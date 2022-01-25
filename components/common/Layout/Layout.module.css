@@ -1,0 +1,4 @@
+.root {
+  @apply h-screen mx-auto;
+  max-width: 2460px;
+}

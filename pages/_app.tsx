@@ -1,6 +1,7 @@
 import { AppProps } from 'next/app';
 import { FC } from 'react';
 import '@assets/main.css';
+import { UIProvider } from '@components/ui/context';
 
 // Layout Fallback
 const Noop: FC = ({ children }) => <>{children}</>;
@@ -16,9 +17,11 @@ function MyApp({
   const Layout = Component.Layout ?? Noop;
 
   return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
+    <UIProvider>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </UIProvider>
   );
 }
 

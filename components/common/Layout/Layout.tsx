@@ -1,3 +1,4 @@
+import CartSidebar from '@components/cart/CartSidebar';
 import { Sidebar } from '@components/ui';
 import { FC } from 'react';
 import Footer from '../Footer';
@@ -9,9 +10,7 @@ const Layout: FC = ({ children }) => {
     <div className={styles.root}>
       <Navbar />
       <Sidebar isOpen={true} onClose={() => {}}>
-        <h1>hi</h1>
-        <h1>hi</h1>
-        <h1>hi</h1>
+        <CartSidebar />
       </Sidebar>
       <main className="fit">{children}</main>
 

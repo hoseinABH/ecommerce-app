@@ -1,6 +1,11 @@
-interface ProductImage {
+export interface ProductImage {
   url: string;
   alt?: string;
+}
+
+export interface ProductPrice {
+  value: number;
+  currencyCode: 'USD' | 'EUR' | string;
 }
 
 export interface Product {
@@ -11,4 +16,5 @@ export interface Product {
   slug: string;
   images: ProductImage[];
   vendor: string;
+  price: ProductPrice;
 }

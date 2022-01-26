@@ -8,7 +8,7 @@ import { Product } from '@common/types/product';
 export function normalizeProductImages({ edges }: { edges: ImageEdge[] }) {
   return edges.map(({ node: { originalSrc: url, ...rest } }) => {
     return {
-      url: `images/${url}`,
+      url: `/images/${url}`,
       ...rest,
     };
   });

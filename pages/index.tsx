@@ -5,7 +5,7 @@ import type { InferGetStaticPropsType } from 'next';
 // components
 import { Layout } from '@components/common';
 import { ProductCard } from '@components/product';
-import { Grid, Hero } from '@components/ui';
+import { Grid, Hero, Marquee } from '@components/ui';
 
 export async function getStaticProps() {
   const config = getConfig();
@@ -33,6 +33,12 @@ export default function Home({
         headline="Cookies, ice cream and muffin"
         description="Marshmallow tart jelly icing cotton candy tootsie roll cotton candy candy canes. Cake liquorice sesame snaps. Cupcake cake cheesecake pie marshmallow lollipop soufflé marshmallow dessert. Cheesecake jujubes halvah chupa chups lollipop tootsie roll. Jelly-o tiramisu jelly toffee cake croissant lemon drops pudding. Donut sesame snaps gummi bears toffee. Sesame snaps jelly-o oat cake chocolate marzipan cake lollipop. Gingerbread cheesecake jujubes fruitcake cake. Tiramisu cotton candy marzipan candy canes oat cake pudding bonbon."
       />
+
+      <Marquee>
+        {products.slice(0, 3).map((product) => (
+          <ProductCard key={product.id} variant="slim" product={product} />
+        ))}
+      </Marquee>
     </>
   );
 }

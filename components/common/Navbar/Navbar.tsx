@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import Link from 'next/link';
 import { Container } from '@components/ui';
+import Usernav from '../Usernav';
 import styles from './Navbar.module.scss';
 
 interface IProps {}
@@ -27,9 +28,9 @@ const Navbar: FC<IProps> = () => {
               <a className={styles.link}>Shoes</a>
             </Link>
           </nav>
-          {/* <div className="flex flex-1 justify-end space-x-8">
+          <div className="flex flex-1 justify-end space-x-8">
             <Usernav />
-          </div> */}
+          </div>
         </div>
       </div>
     </Container>

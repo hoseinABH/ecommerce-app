@@ -7,7 +7,7 @@ interface IProps {
   layout?: 'A' | 'B';
 }
 
-const Grid: FC<IProps> = ({ children, layout }) => {
+const Grid: FC<IProps> = ({ children, layout = 'A' }) => {
   const rootClassName = cn(styles.gridContainer, {
     [styles.layoutA]: layout === 'A',
     [styles.layoutB]: layout === 'B',

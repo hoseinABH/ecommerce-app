@@ -1,5 +1,5 @@
 .container {
-  @apply flex flex-col py-32 justify-center p-5;
+  @apply flex flex-col py-32 justify-center;
 
   @screen md {
     @apply flex-row;

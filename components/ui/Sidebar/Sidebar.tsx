@@ -1,4 +1,9 @@
-import { FC, MutableRefObject, ReactNode, useRef } from 'react';
+import { FC, MutableRefObject, ReactNode, useEffect, useRef } from 'react';
+import {
+  clearAllBodyScrollLocks,
+  disableBodyScroll,
+  enableBodyScroll,
+} from 'body-scroll-lock';
 
 interface IProps {
   children: ReactNode;
@@ -8,6 +13,20 @@ interface IProps {
 
 const Sidebar: FC<IProps> = ({ children, isOpen, onClose }) => {
   const ref = useRef() as MutableRefObject<HTMLDivElement>;
+
+  useEffect(() => {
+    if (ref.current) {
+      if (isOpen) {
+        disableBodyScroll(ref.current);
+      } else {
+        enableBodyScroll(ref.current);
+      }
+    }
+
+    return () => {
+      clearAllBodyScrollLocks();
+    };
+  }, [isOpen]);
 
   return (
     <>

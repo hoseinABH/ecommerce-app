@@ -7,14 +7,14 @@ import Navbar from '../Navbar';
 import styles from './Layout.module.scss';
 
 const Layout: FC = ({ children }) => {
-  const ui = useUI();
-  const onClose = () => ui.closeSidebar();
+  const { closeSidebar, isSidebarOpen } = useUI();
+
   return (
     <div className={styles.root}>
       <Navbar />
 
       {/* Cart Sidebar */}
-      <Sidebar isOpen={ui.isSidebarOpen} onClose={onClose}>
+      <Sidebar isOpen={isSidebarOpen} onClose={closeSidebar}>
         <CartSidebar />
       </Sidebar>
       {/* Cart Sidebar */}

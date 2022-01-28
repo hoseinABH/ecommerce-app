@@ -1,11 +1,4 @@
-import {
-  createContext,
-  Dispatch,
-  ReactNode,
-  SetStateAction,
-  useContext,
-  useState,
-} from 'react';
+import { createContext, ReactNode, useContext, useReducer } from 'react';
 
 export interface StateModifiers {
   openSidebar: () => void;
@@ -14,7 +7,6 @@ export interface StateModifiers {
 
 export interface StateValues {
   isSidebarOpen: boolean;
-  // setSidebarOpen: Dispatch<SetStateAction<boolean>>;
 }
 
 const stateModifiers = {
@@ -28,17 +20,34 @@ type State = StateValues & StateModifiers;
 
 const UIContext = createContext<State>({ ...stateModifiers, ...initialState });
 
-export function UIProvider({ children }: { children: ReactNode }) {
-  const [isSidebarOpen, setSidebarOpen] = useState<boolean>(false);
+type Action = { type: 'OPEN_SIDEBAR' | 'CLOSE_SIDEBAR' };
 
-  const openSidebar = () => setSidebarOpen(true);
-  const closeSidebar = () => setSidebarOpen(false);
+function uiReducer(state: StateValues, action: Action) {
+  switch (action.type) {
+    case 'OPEN_SIDEBAR':
+      return {
+        ...state,
+        isSidebarOpen: true,
+      };
+    case 'CLOSE_SIDEBAR':
+      return {
+        ...state,
+        isSidebarOpen: false,
+      };
+  }
+}
+export function UIProvider({ children }: { children: ReactNode }) {
+  const [state, dispatch] = useReducer(uiReducer, initialState);
+
+  const openSidebar = () => dispatch({ type: 'OPEN_SIDEBAR' });
+  const closeSidebar = () => dispatch({ type: 'CLOSE_SIDEBAR' });
 
   const uiState = {
-    isSidebarOpen,
+    ...state,
     openSidebar,
     closeSidebar,
   };
+
   return <UIContext.Provider value={uiState}>{children}</UIContext.Provider>;
 }
 

@@ -5,17 +5,13 @@ import { useUI } from '@components/ui/context';
 import { Bag as Cart, Heart } from '@components/icons';
 
 const Usernav = () => {
-  const ui = useUI();
-
-  const handleSidebar = () => {
-    ui.openSidebar();
-  };
+  const { openSidebar } = useUI();
 
   return (
     <nav>
       <ul className="flex">
         <li className="relative mr-6 flex items-center text-primary outline-none cursor-pointer hover:scale-110 hover:text-accents-6">
-          <Cart onClick={handleSidebar} />
+          <Cart onClick={openSidebar} />
           {/* <span className="">0</span> */}
         </li>
         <li className="relative mr-6 flex items-center text-primary outline-none cursor-pointer hover:scale-110 hover:text-accents-6">

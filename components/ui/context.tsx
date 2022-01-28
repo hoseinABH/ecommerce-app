@@ -1,4 +1,10 @@
-import { createContext, ReactNode, useContext, useReducer } from 'react';
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useReducer,
+  useMemo,
+} from 'react';
 
 export interface StateModifiers {
   openSidebar: () => void;
@@ -42,13 +48,16 @@ export function UIProvider({ children }: { children: ReactNode }) {
   const openSidebar = () => dispatch({ type: 'OPEN_SIDEBAR' });
   const closeSidebar = () => dispatch({ type: 'CLOSE_SIDEBAR' });
 
-  const uiState = {
-    ...state,
-    openSidebar,
-    closeSidebar,
-  };
+  const value = useMemo(() => {
+    return {
+      ...state,
+      openSidebar,
+      closeSidebar,
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state.isSidebarOpen]);
 
-  return <UIContext.Provider value={uiState}>{children}</UIContext.Provider>;
+  return <UIContext.Provider value={value}>{children}</UIContext.Provider>;
 }
 
 export function useUI() {

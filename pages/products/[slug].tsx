@@ -1,6 +1,6 @@
 import { Layout } from '@components/common';
 import { getConfig } from '@framework/api/config';
-import getAllProductsPaths from '@framework/product/get-all-products-paths';
+import { getAllProductsPaths, getProduct } from '@framework/product';
 import {
   GetStaticPaths,
   GetStaticPropsContext,
@@ -18,18 +18,19 @@ export const getStaticPaths: GetStaticPaths = async () => {
         },
       };
     }),
-    fallback: true,
+    fallback: false,
   };
 };
 
 export const getStaticProps = async ({
   params,
 }: GetStaticPropsContext<{ slug: string }>) => {
+  const config = getConfig();
+  const { product } = await getProduct(config);
+
   return {
     props: {
-      product: {
-        slug: params?.slug,
-      },
+      product,
     },
   };
 };
@@ -39,7 +40,7 @@ export default function ProductSlug({
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <div>
-      <h1>Hello world {product?.slug}</h1>
+      <h1>{product.name}</h1>
     </div>
   );
 }
